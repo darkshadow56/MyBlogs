@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/css/styles.css" />
+    <title>MyBlogs</title>
+  </head>
+
+  <body>
+    <%- include('partials/header') %>
+    <div class="container-fluid home-container">
+      <h1 class="homeInfo">WELCOME TO <strong>MyBlogs</strong></h1>
+      <p style="text-align: center;">COMPOSE NEW BLOG TO GET STARTED</p>
+      <div class="postContainer">
+        <% newBlogPost.forEach((post)=>{%>
+        <h3 class="blogTitle"><%= post.title %></h3>
+        <h4 class="hideContent homeBlog">
+          <%= post.blog.slice(0, 150) %>
+          <a href="/post/<%= post.title %>" id="readMore">...READ MORE</a>
+        </h4>
+        <%})%>
+      </div>
+    </div>
+    <%- include('partials/footer') %>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compose post</title>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <h4 class="composeHeading">ADD NEW POST</h4>
+    <form action="/" method="post" class="composeForm">
+      <div class="formTitleContainer">
+        <label for="title" class="formLables">TITLE:</label>
+      </div>
+      <input type="text" name="title" class="formInput" id="titleInput" />
+
+      <div class="formBlogContainer">
+        <label for="blog" class="formLables">DESCRIBE:</label>
+      </div>
+      <textarea
+        type="text"
+        name="blog"
+        class="formInput"
+        id="blogInput"
+      ></textarea>
+
+      <div class="formSubmitButton">
+        <button type="submit" id="submitButton">PUBLISH</button>
+      </div>
+    </form>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>
