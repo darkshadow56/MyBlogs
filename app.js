@@ -7,7 +7,7 @@ let posts = [];
 const homeStartingContent = "WELCOME TO MyBlogs.";
 const aboutContent = "This is about us page ";
 const contactContent = "This is contact us page for ";
-const POST = process.env.POST || 3000;
+const PORT = process.env.PORT | 3000;
 
 //creating instance of express
 const app = express();
@@ -57,6 +57,6 @@ app.get("/post/:postName", (req, res) => {
   });
 });
 
-app.listen(POST, function () {
-  console.log("Server started on port", POST);
+app.listen(PORT, function () {
+  console.log("Server started on port", PORT);
 });
