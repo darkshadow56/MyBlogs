@@ -7,7 +7,7 @@ let posts = [];
 const homeStartingContent = "WELCOME TO MyBlogs.";
 const aboutContent = "This is about us page ";
 const contactContent = "This is contact us page for ";
-const PORT = process.env.PORT | 3000;
+const PORT = process.env.PORT || 3000;
 
 //creating instance of express
 const app = express();
