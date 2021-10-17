@@ -12,16 +12,20 @@
     <%- include('partials/header') %>
     <div class="container-fluid home-container">
       <h1 class="homeInfo">WELCOME TO <strong>MyBlogs</strong></h1>
-      <p style="text-align: center;">COMPOSE NEW BLOG TO GET STARTED</p>
+      <h4 style="text-align: center;"><%= messageIfEmpty %></h4>
+      <!-- Form -->
+      <form action="/deletePost" method="post">
       <div class="postContainer">
-        <% newBlogPost.forEach((post)=>{%>
-        <h3 class="blogTitle"><%= post.title %></h3>
+        <% newBlogPost.forEach((newPost)=>{%>
+        <h3 class="blogTitle"><%= newPost.title %></h3>
         <h4 class="hideContent homeBlog">
-          <%= post.blog.slice(0, 150) %>
-          <a href="/post/<%= post.title %>" id="readMore">...READ MORE</a>
+          <%= newPost.post.slice(0, 150) %>
+          <a href="/post/<%= newPost.title %>" id="readMore">..READ MORE</a>
+          <button class="postDeleteButton" value='<%= newPost.title %>' name='postDelete' onClick="this.form.submit()">DELETE</Button>
         </h4>
         <%})%>
       </div>
+    </form>
     </div>
     <%- include('partials/footer') %>
   </body>

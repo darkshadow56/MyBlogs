@@ -16,6 +16,10 @@
   font-size: 12px;
   letter-spacing: 5px;
 }
+#brandLogo{
+  text-decoration: none;
+  color: grey;
+}
 .navbar-nav li a:hover {
   color: #1abc9c !important;
 }
@@ -175,6 +179,9 @@
 }
 #readMore {
   font-size: 1.3rem;
+  text-decoration: none;
+
+
 }
 @media (max-width: 720px) {
   .homeBlog {
@@ -205,6 +212,17 @@
   text-align: justify;
   font-size: 2rem;
   line-height: 2.6rem;
+}
+
+.postDeleteButton{
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: rgb(245, 100, 100);
+  font-size: 1.3rem;
+  padding: 1rem;
+  /* cursor: pointer; */
+  text-decoration: none;
 }
 
 

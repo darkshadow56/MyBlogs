@@ -3,11 +3,35 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
 const ejs = require("ejs");
-let posts = [];
+const mongoose = require('mongoose');
 const homeStartingContent = "WELCOME TO MyBlogs.";
 const aboutContent = "This is about us page ";
 const contactContent = "This is contact us page for ";
 const PORT = process.env.PORT || 3000;
+const EmptyMessage = 'It\'s Empty Here, Please Compose New Post';
+const notEmptyMessage = 'Your Posts'
+
+//Connecting to database
+mongoose.connect('mongodb://localhost:27017/myBlogsDB', (err)=>{
+  if(err){
+    console.log(err);
+  } else {
+    console.log("Database Connected Successfully!")
+  }
+});
+
+const blogSchema = ({
+  title: {
+    type: String,
+    required: true
+  },
+  post: {
+    type: String,
+    required: true
+  }
+});
+
+const Blog = mongoose.model('Blog', blogSchema);
 
 //creating instance of express
 const app = express();
@@ -20,19 +44,53 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Post reqs
+
+app.post('/deletePost', (req, res)=>{
+  const postDeleteRequest = req.body.postDelete;
+  console.log(postDeleteRequest);
+  Blog.deleteOne({title: postDeleteRequest}, (err)=>{
+    if (err){
+      console.log(err);
+    }else{
+      console.log('Deleted Successfully!');
+    }
+  });
+  res.redirect('/');
+});
+
 app.post("/", (req, res) => {
   const blogPost = {
     title: req.body.title,
     blog: req.body.blog
   };
-  posts.push(blogPost);
+
+const Post = new Blog({
+  title: blogPost.title, 
+  post: blogPost.blog
+});
+  Post.save(()=>{
+    console.log("data inserted");
+  });
+  
   res.redirect("/");
 });
 
 //Routes
 app.get("/", (req, res) => {
-  res.render("home", { homeInfo: homeStartingContent,
-                     newBlogPost: posts });
+  Blog.find((err, foundPosts)=>{
+    if(err){
+      console.log(err);
+    }else{
+      if(foundPosts.length === 0){
+        res.render("home", { homeInfo: homeStartingContent,
+          newBlogPost: foundPosts, messageIfEmpty: EmptyMessage});  
+      }else{
+      res.render("home", { homeInfo: homeStartingContent,
+        newBlogPost: foundPosts, messageIfEmpty: notEmptyMessage});
+    }
+  }
+  });
+  
 });
 
 app.get("/about", (req, res) => {
@@ -49,12 +107,22 @@ app.get("/compose", (req, res) => {
 
 app.get("/post/:postName", (req, res) => {
   let fetchedPostTitle = _.lowerCase(req.params.postName);
-  posts.forEach((post) => {
-    const postTitle = _.lowerCase(post.title);
-    if (fetchedPostTitle == postTitle) {
-      res.render('post', {newBlogPostTitle: post.title, newBlogPostBlog: post.blog});
-    }
-  });
+Blog.find({}, (err, foundById)=>{
+  if(err){
+    console.log(err);
+  }else{
+    foundById.forEach((requestedPost) => {
+      const postTitle = _.lowerCase(requestedPost.title);
+      if (fetchedPostTitle == postTitle) {
+        res.render('post', {newBlogPostTitle: requestedPost.title, newBlogPostBlog: requestedPost.post});
+      }
+    });
+  }
+})
+
+
+
+ 
 });
 
 app.listen(PORT, function () {
