@@ -7,12 +7,14 @@ const mongoose = require('mongoose');
 const homeStartingContent = "WELCOME TO MyBlogs.";
 const aboutContent = "This is about us page ";
 const contactContent = "This is contact us page for ";
+require('dotenv').config();
 const PORT = process.env.PORT || 3000;
+const uri = process.env.ATLAS_URI;
 const EmptyMessage = 'It\'s Empty Here, Please Compose New Post';
 const notEmptyMessage = 'Your Posts'
 
 //Connecting to database
-mongoose.connect('mongodb+srv://admin-vaibhav:adminVaibhav@cluster0.habti.mongodb.net/MyBlogs?retryWrites=true&w=majority', (err)=>{
+mongoose.connect(uri,{useNewUrlParser:true}, (err)=>{
   if(err){
     console.log(err);
   } else {
