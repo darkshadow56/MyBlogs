@@ -12,7 +12,7 @@ const EmptyMessage = 'It\'s Empty Here, Please Compose New Post';
 const notEmptyMessage = 'Your Posts'
 
 //Connecting to database
-mongoose.connect('mongodb://localhost:27017/myBlogsDB', (err)=>{
+mongoose.connect('mongodb+srv://admin-vaibhav:adminVaibhav@cluster0.habti.mongodb.net/MyBlogs?retryWrites=true&w=majority', (err)=>{
   if(err){
     console.log(err);
   } else {

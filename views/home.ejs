@@ -18,9 +18,9 @@
       <div class="postContainer">
         <% newBlogPost.forEach((newPost)=>{%>
         <h3 class="blogTitle"><%= newPost.title %></h3>
-        <h4 class="hideContent homeBlog">
+        <h4 class="homeBlog">
           <%= newPost.post.slice(0, 150) %>
-          <a href="/post/<%= newPost.title %>" id="readMore">..READ MORE</a>
+          <a href="/post/<%= newPost.title %>" id="readMore">READ MORE</a>
           <button class="postDeleteButton" value='<%= newPost.title %>' name='postDelete' onClick="this.form.submit()">DELETE</Button>
         </h4>
         <%})%>
